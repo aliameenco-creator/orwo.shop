@@ -1,0 +1,75 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"settings": {
+		"appearanceTools": false,
+		"useRootPaddingAwareAlignments": false,
+		"layout": { "contentSize": "760px", "wideSize": "1280px" },
+		"color": {
+			"defaultPalette": false,
+			"defaultGradients": false,
+			"defaultDuotone": false,
+			"custom": false,
+			"customGradient": false,
+			"palette": [
+				{ "slug": "white", "name": "White", "color": "#FFFFFF" },
+				{ "slug": "tile", "name": "Tile grey", "color": "#F4F4F2" },
+				{ "slug": "ink", "name": "Near black", "color": "#111111" },
+				{ "slug": "muted", "name": "Secondary text", "color": "#5F5F5F" },
+				{ "slug": "line", "name": "Line", "color": "#E3E3E0" },
+				{ "slug": "accent", "name": "Accent", "color": "#D12F12" }
+			]
+		},
+		"typography": {
+			"customFontSize": false,
+			"defaultFontSizes": false,
+			"fluid": false,
+			"fontFamilies": [
+				{
+					"slug": "poppins",
+					"name": "Poppins",
+					"fontFamily": "Poppins, 'Poppins Fallback', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif"
+				}
+			],
+			"fontSizes": [
+				{ "slug": "small", "name": "Small", "size": "0.8125rem" },
+				{ "slug": "medium", "name": "Body", "size": "0.9375rem" },
+				{ "slug": "large", "name": "Large", "size": "1.25rem" },
+				{ "slug": "x-large", "name": "Heading", "size": "2rem" }
+			]
+		},
+		"spacing": {
+			"padding": true,
+			"margin": true,
+			"units": [ "px", "rem", "%" ],
+			"spacingSizes": [
+				{ "slug": "10", "name": "1", "size": "8px" },
+				{ "slug": "20", "name": "2", "size": "16px" },
+				{ "slug": "30", "name": "3", "size": "24px" },
+				{ "slug": "40", "name": "4", "size": "40px" },
+				{ "slug": "50", "name": "5", "size": "64px" }
+			]
+		},
+		"border": { "radius": false, "color": false, "style": false, "width": false },
+		"shadow": { "defaultPresets": false, "presets": [] }
+	},
+	"styles": {
+		"color": { "background": "#FFFFFF", "text": "#111111" },
+		"spacing": { "blockGap": "16px" },
+		"typography": {
+			"fontFamily": "var(--wp--preset--font-family--poppins)",
+			"fontSize": "0.9375rem",
+			"lineHeight": "1.6",
+			"fontWeight": "400"
+		},
+		"elements": {
+			"link": { "color": { "text": "#111111" }, "typography": { "textDecoration": "underline" } },
+			"heading": { "typography": { "fontWeight": "500", "lineHeight": "1.2" } },
+			"button": {
+				"color": { "background": "#D12F12", "text": "#FFFFFF" },
+				"border": { "radius": "2px" },
+				"typography": { "fontWeight": "500" }
+			}
+		}
+	}
+}

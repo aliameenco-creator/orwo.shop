@@ -1,0 +1,12 @@
+# Build output: releases carry the packages, the repository does not.
+dist/
+
+# Never commit credentials or local machine files.
+.env
+.env.*
+*.key
+*.pem
+*.pfx
+*.p12
+.DS_Store
+Thumbs.db

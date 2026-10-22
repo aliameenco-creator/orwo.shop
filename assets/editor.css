@@ -1,0 +1,24 @@
+/* Block editor: the same type, colours and measure as the front end, so a page looks the same while it is written. */
+.editor-styles-wrapper {
+	--orwo-ink: #111111;
+	--orwo-muted: #5f5f5f;
+	--orwo-line: #e3e3e0;
+	--orwo-accent: #d12f12;
+	background: #ffffff;
+	color: var(--orwo-ink);
+	font-family: Poppins, "Poppins Fallback", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+	font-size: 15px;
+	line-height: 1.6;
+}
+.editor-styles-wrapper h1,
+.editor-styles-wrapper h2,
+.editor-styles-wrapper h3 {
+	font-weight: 500;
+	line-height: 1.15;
+	letter-spacing: -0.01em;
+}
+.editor-styles-wrapper a { color: var(--orwo-ink); text-decoration: underline; }
+.editor-styles-wrapper table { width: 100%; border-collapse: collapse; }
+.editor-styles-wrapper th,
+.editor-styles-wrapper td { padding: 8px 0; border-bottom: 1px solid var(--orwo-line); text-align: left; }
+.editor-styles-wrapper .wp-block-button__link { background: var(--orwo-accent); border-radius: 2px; font-weight: 500; }
