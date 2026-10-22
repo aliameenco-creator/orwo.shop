@@ -24,5 +24,8 @@ Poppins is bundled under the SIL Open Font License 1.1, as WOFF2 Latin subsets i
 
 == Changelog ==
 
+= 0.2.0 =
+Trailers on DVD and Blu-ray products, shown below the product and loaded only on click.
+
 = 0.1.0 =
 First build: catalogue templates, filters, homepage, chatbot, SEO, security defaults and the GitHub updater.

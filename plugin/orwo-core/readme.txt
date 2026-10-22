@@ -27,5 +27,8 @@ WooCommerce is required for prices, stock, cart and checkout.
 
 == Changelog ==
 
+= 0.2.0 =
+Trailer field on the disc formats; all genres in the spec table.
+
 = 0.1.0 =
 First build.

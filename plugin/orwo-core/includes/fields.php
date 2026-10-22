@@ -124,11 +124,12 @@ function orwo_spec_rows( $product_id ) {
 			'value' => $label_term->name,
 		);
 	}
-	$genre = orwo_first_term( $product_id, 'orwo_genre' );
-	if ( $genre ) {
+	// A film is often two genres at once, so list them all rather than the first one found.
+	$genres = get_the_terms( $product_id, 'orwo_genre' );
+	if ( $genres && ! is_wp_error( $genres ) ) {
 		$rows[] = array(
-			'label' => __( 'Genre', 'orwo-core' ),
-			'value' => $genre->name,
+			'label'  => _n( 'Genre', 'Genres', count( $genres ), 'orwo-core' ),
+			'value'  => implode( ', ', wp_list_pluck( $genres, 'name' ) ),
 		);
 	}
 	$year = orwo_field( $product_id, 'year' );

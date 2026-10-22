@@ -250,3 +250,88 @@ add_action( 'woocommerce_variation_set_stock', 'orwo_product_changed' );
 add_action( 'woocommerce_product_set_stock_status', 'orwo_product_changed' );
 add_action( 'woocommerce_update_product', 'orwo_product_changed' );
 add_action( 'trashed_post', 'orwo_product_changed' );
+
+/**
+ * Reads a trailer field and works out which provider and video it points at.
+ *
+ * Accepts a full watch URL, a short link, an embed URL or a bare video ID, so whoever fills the field in does not
+ * have to think about the format.
+ *
+ * @param string $value Field value.
+ * @return array{provider:string,id:string,embed:string,url:string}|null
+ */
+function orwo_parse_trailer( $value ) {
+	$value = trim( (string) $value );
+	if ( '' === $value ) {
+		return null;
+	}
+
+	// A bare YouTube ID.
+	if ( preg_match( '~^[A-Za-z0-9_-]{11}$~D', $value ) ) {
+		return orwo_trailer_youtube( $value );
+	}
+	// A bare Vimeo ID.
+	if ( preg_match( '~^\d{6,12}$~D', $value ) ) {
+		return orwo_trailer_vimeo( $value );
+	}
+
+	$host = strtolower( (string) wp_parse_url( $value, PHP_URL_HOST ) );
+
+	if ( false !== strpos( $host, 'youtu' ) ) {
+		if ( preg_match( '~(?:v=|/embed/|youtu\.be/|/shorts/)([A-Za-z0-9_-]{11})~', $value, $match ) ) {
+			return orwo_trailer_youtube( $match[1] );
+		}
+	}
+	if ( false !== strpos( $host, 'vimeo' ) ) {
+		if ( preg_match( '~vimeo\.com/(?:video/)?(\d{6,12})~', $value, $match ) ) {
+			return orwo_trailer_vimeo( $match[1] );
+		}
+	}
+
+	return null;
+}
+
+/**
+ * A YouTube trailer, embedded through the no-cookie domain.
+ *
+ * @param string $id Video ID.
+ * @return array<string,string>
+ */
+function orwo_trailer_youtube( $id ) {
+	return array(
+		'provider' => 'youtube',
+		'id'       => $id,
+		'embed'    => 'https://www.youtube-nocookie.com/embed/' . $id . '?autoplay=1&rel=0&modestbranding=1',
+		'url'      => 'https://www.youtube.com/watch?v=' . $id,
+	);
+}
+
+/**
+ * A Vimeo trailer.
+ *
+ * @param string $id Video ID.
+ * @return array<string,string>
+ */
+function orwo_trailer_vimeo( $id ) {
+	return array(
+		'provider' => 'vimeo',
+		'id'       => $id,
+		'embed'    => 'https://player.vimeo.com/video/' . $id . '?autoplay=1',
+		'url'      => 'https://vimeo.com/' . $id,
+	);
+}
+
+/**
+ * The trailer of a product, if it has one.
+ *
+ * @param int $product_id Product ID.
+ * @return array<string,string>|null
+ */
+function orwo_product_trailer( $product_id ) {
+	$format = orwo_product_format( $product_id );
+	if ( ! $format || ! array_key_exists( 'trailer', Orwo_Formats::fields( $format ) ) ) {
+		return null;
+	}
+
+	return orwo_parse_trailer( (string) orwo_field( $product_id, 'trailer' ) );
+}

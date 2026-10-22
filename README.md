@@ -75,6 +75,31 @@ than duplicates. The importer has a dry run, which is on by default.
 Format, genre, creator, label, decade and condition are taxonomies rather than meta, so filtering and counting use
 indexed term relationships. The decade is derived from the Year field on save.
 
+## Films: trailers and the disc catalogue
+
+DVD and Blu-ray products have a **Trailer** field. Paste a YouTube or Vimeo link (or just the video ID) and the
+trailer appears below the product. Nothing loads from the video host until the visitor presses play, so a product
+page makes no third-party request and sets no outside cookies on arrival; the embed then uses YouTube's no-cookie
+domain.
+
+The films we built websites for have a generator:
+
+```powershell
+python tools/build_orwoshop_film_catalogue.py
+```
+
+It reads `movie-sites/films/*/film.json` — the same records the film sites were built from — and writes
+`exports/orwo-shop-catalogue/orwo-dvds.csv`, `orwo-blu-ray.csv` and a report. One DVD and one Blu-ray per film:
+title, director as the creator, genres, year, runtime, the UK distributor as the label, the opening line of the
+synopsis, the trailer and the poster (pulled from the live film site, so the importer can sideload it).
+
+Load them under **Products → Import and export**, one format at a time, with the dry run on first.
+
+Price, region, edition, disc count and condition are shop policy rather than facts about the films: they come
+from constants at the top of the generator and are listed in the report as things to review. Subtitle and audio
+languages are left empty rather than guessed. Momma Bird is left out because it is unreleased and has neither a
+poster nor a trailer, which is why its own site has no buy section.
+
 ## Ask ORWO
 
 A guided finder plus a small search engine that runs in the visitor's browser over the shop's own catalogue and the

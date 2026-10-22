@@ -160,7 +160,33 @@
 	}
 
 	function stem( word ) {
-		return word.replace( /(ies)$/, 'y' ).replace( /(es|s)$/, '' );
+		// Only trim a plural when something recognisable is left. Trimming hard turned "this" into "thi", which
+		// then matched "things" and gave a nonsense question a confident answer.
+		if ( word.length > 4 && /ies$/.test( word ) ) {
+			return word.slice( 0, -3 ) + 'y';
+		}
+		if ( word.length > 5 && /(ches|shes|xes|ses)$/.test( word ) ) {
+			return word.slice( 0, -2 );
+		}
+		if ( word.length > 4 && /s$/.test( word ) && ! /ss$/.test( word ) ) {
+			return word.slice( 0, -1 );
+		}
+
+		return word;
+	}
+
+	/**
+	 * Whether a search word matches any whole word in a piece of text, allowing a prefix such as "creep" for
+	 * "creepers". Substring matching anywhere in the string matched far too much.
+	 */
+	function hasWord( text, needle ) {
+		if ( ! text || needle.length < 3 ) {
+			return false;
+		}
+
+		return clean( text ).split( ' ' ).some( function ( word ) {
+			return word === needle || ( word.length > needle.length && word.indexOf( needle ) === 0 );
+		} );
 	}
 
 	function words( text ) {
@@ -202,18 +228,18 @@
 
 		list.forEach( function ( word ) {
 			var root = stem( word );
-			if ( title.indexOf( word ) !== -1 ) {
+			if ( hasWord( title, word ) ) {
 				total += 10;
-			} else if ( title.indexOf( root ) !== -1 ) {
+			} else if ( hasWord( title, root ) ) {
 				total += 7;
 			}
-			if ( creator && ( creator.indexOf( word ) !== -1 || creator.indexOf( root ) !== -1 ) ) {
+			if ( creator && ( hasWord( creator, word ) || hasWord( creator, root ) ) ) {
 				total += 9;
 			}
-			if ( product.genre && product.genre.indexOf( root ) !== -1 ) {
+			if ( product.genre && hasWord( product.genre.replace( /-/g, ' ' ), root ) ) {
 				total += 5;
 			}
-			if ( keywords.indexOf( root ) !== -1 ) {
+			if ( hasWord( keywords, root ) ) {
 				total += 3;
 			}
 		} );
@@ -246,6 +272,7 @@
 							return stem( item ) === stem( word );
 						} );
 				} ).length;
+				
 				if ( matched === triggerWords.length ) {
 					hits = Math.max( hits, 3 + triggerWords.length );
 				} else if ( matched > 0 ) {

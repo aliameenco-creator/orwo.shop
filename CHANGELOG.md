@@ -2,6 +2,28 @@
 
 All notable changes to the ORWO theme and the ORWO Core plugin.
 
+## 0.2.0 — 2026-10-22
+
+Trailers on disc products, and the film catalogue.
+
+### Added
+
+- **Trailer field** on DVD and Blu-ray products. It takes a YouTube or Vimeo link or a bare video ID, and shows
+  the trailer below the product. Nothing is fetched from the video host until the visitor presses play, so the
+  page costs no third-party request and sets no outside cookies on arrival; the embed then uses YouTube's
+  no-cookie domain. The field is kept out of the spec table, and travels in the CSV templates automatically.
+- **Film catalogue**: `tools/build_orwoshop_film_catalogue.py` turns the film records behind the fourteen film
+  websites into shop CSVs, one DVD and one Blu-ray per film, with poster, director, genres, year, runtime,
+  distributor, the opening line of the synopsis and the trailer. Momma Bird is left out: it is unreleased, has no
+  poster or trailer, and its own site has no buy section either.
+
+### Changed
+
+- The spec table lists every genre a product has, not just the first.
+- The chatbot matches whole words and prefixes instead of any substring, and stems plurals only when a real word
+  is left. Before this, a nonsense question could match an unrelated title ("this" matched "things") and answer
+  confidently instead of handing the visitor to the Ask a question form.
+
 ## 0.1.0 — 2026-10-22
 
 First build: phases 1 to 4 of the ORWO Shop plan.

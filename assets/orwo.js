@@ -254,6 +254,28 @@
 		} );
 	}
 
+	/* ---------- Trailer: nothing is fetched from the video host until this is clicked ---------- */
+
+	$$( '[data-orwo-trailer]' ).forEach( function ( frame ) {
+		var play = $( '.orwo-trailer__play', frame );
+		if ( ! play ) {
+			return;
+		}
+
+		play.addEventListener( 'click', function () {
+			var iframe = document.createElement( 'iframe' );
+			iframe.src = frame.getAttribute( 'data-embed' );
+			iframe.title = frame.getAttribute( 'data-title' ) || '';
+			iframe.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
+			iframe.allowFullscreen = true;
+			iframe.loading = 'lazy';
+			iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+			frame.textContent = '';
+			frame.appendChild( iframe );
+			iframe.focus();
+		} );
+	} );
+
 	/* ---------- Filters ---------- */
 
 	var filtersForm = $( '[data-orwo-filters]' );

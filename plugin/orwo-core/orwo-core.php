@@ -3,7 +3,7 @@
  * Plugin Name:       ORWO Core
  * Plugin URI:        https://orwo.shop/
  * Description:       The ORWO catalogue: the six formats and their fields, the genre, creator and label taxonomies, clean URLs, the filter engine and REST endpoint, the Ask ORWO chatbot index, enquiries and CSV import and export. Design lives in the ORWO theme, so a redesign never touches the catalogue.
- * Version:           0.1.0
+ * Version:           0.2.0
  * Requires at least: 6.6
  * Requires PHP:      8.1
  * Author:            ORWO
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'ORWO_CORE_VERSION', '0.1.0' );
+define( 'ORWO_CORE_VERSION', '0.2.0' );
 define( 'ORWO_CORE_FILE', __FILE__ );
 define( 'ORWO_CORE_PATH', plugin_dir_path( __FILE__ ) );
 define( 'ORWO_CORE_URL', plugin_dir_url( __FILE__ ) );

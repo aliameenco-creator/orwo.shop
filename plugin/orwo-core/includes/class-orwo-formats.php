@@ -130,6 +130,12 @@ class Orwo_Formats {
 						'label' => __( 'Disc count', 'orwo-core' ),
 						'type'  => 'number',
 					),
+					'trailer'   => array(
+						'label' => __( 'Trailer', 'orwo-core' ),
+						'type'  => 'text',
+						'spec'  => false,
+						'hint'  => __( 'A YouTube or Vimeo link, or just the video ID. Shown under the product.', 'orwo-core' ),
+					),
 				),
 			),
 			'blu-ray' => array(
@@ -173,6 +179,12 @@ class Orwo_Formats {
 					'discs'      => array(
 						'label' => __( 'Disc count', 'orwo-core' ),
 						'type'  => 'number',
+					),
+					'trailer'    => array(
+						'label' => __( 'Trailer', 'orwo-core' ),
+						'type'  => 'text',
+						'spec'  => false,
+						'hint'  => __( 'A YouTube or Vimeo link, or just the video ID. Shown under the product.', 'orwo-core' ),
 					),
 				),
 			),

@@ -106,6 +106,47 @@ $orwo_product   = orwo_core_active() ? orwo_wc_product( $orwo_id ) : null;
 			<?php the_content(); ?>
 		</div>
 	<?php endif; ?>
+
+	<?php
+	$orwo_trailer = orwo_core_active() ? orwo_product_trailer( $orwo_id ) : null;
+	if ( $orwo_trailer ) :
+		// Click to play: nothing is fetched from the video host until the visitor asks for it, so the page costs
+		// no third-party request and the shop sets no outside cookies on arrival.
+		$orwo_poster = (string) get_the_post_thumbnail_url( $orwo_id, 'orwo-tile' );
+		?>
+		<section class="orwo-trailer" id="orwo-trailer">
+			<h2><?php esc_html_e( 'Watch the trailer', 'orwo' ); ?></h2>
+			<div class="orwo-trailer__frame" data-orwo-trailer data-embed="<?php echo esc_url( $orwo_trailer['embed'] ); ?>"
+				data-title="<?php echo esc_attr( sprintf( /* translators: %s: product title. */ __( '%s trailer', 'orwo' ), get_the_title( $orwo_id ) ) ); ?>">
+				<button type="button" class="orwo-trailer__play">
+					<?php if ( $orwo_poster ) : ?>
+						<img src="<?php echo esc_url( $orwo_poster ); ?>" alt="" loading="lazy" decoding="async" class="orwo-trailer__poster">
+					<?php endif; ?>
+					<span class="orwo-trailer__button" aria-hidden="true">
+						<svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 6.5 19 13 9 19.5z"></path></svg>
+					</span>
+					<span class="orwo-visually-hidden">
+						<?php
+						/* translators: %s: product title. */
+						echo esc_html( sprintf( __( 'Play the %s trailer', 'orwo' ), get_the_title( $orwo_id ) ) );
+						?>
+					</span>
+				</button>
+			</div>
+			<p class="orwo-trailer__note">
+				<a href="<?php echo esc_url( $orwo_trailer['url'] ); ?>" rel="noopener" target="_blank">
+					<?php
+					echo esc_html(
+						'youtube' === $orwo_trailer['provider']
+							? __( 'Watch on YouTube', 'orwo' )
+							: __( 'Watch on Vimeo', 'orwo' )
+					);
+					?>
+				</a>
+				<?php esc_html_e( '— the trailer loads only when you press play.', 'orwo' ); ?>
+			</p>
+		</section>
+	<?php endif; ?>
 </article>
 
 <?php
